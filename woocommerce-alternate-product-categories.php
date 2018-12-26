@@ -199,4 +199,4 @@ class WooCommerce_Alternate_Product_Categories extends WP_Widget {
 	}
 }
 
-add_action( 'widgets_init', create_function( '', 'return register_widget( "WooCommerce_Alternate_Product_Categories" );' ) );
+add_action( 'widgets_init', function() { return register_widget( 'WooCommerce_Alternate_Product_Categories' ); } );
