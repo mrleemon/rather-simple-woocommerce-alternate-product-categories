@@ -7,6 +7,7 @@ Author: Oscar Ciutat
 Version: 1.0
 Text Domain: wapc-widget
 Author URI: http://oscarciutat.com/code/
+WC tested up to: 3.6.5
 */
 
 class WooCommerce_Alternate_Product_Categories extends WP_Widget {
