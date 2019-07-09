@@ -3,10 +3,11 @@
 Plugin Name: WooCommerce Alternate Product Categories
 Plugin URI: http://wordpress.org/plugins/woocommerce-alternate-product-categories
 Description: A WooCommerce alternate product categories widget.
-Author: Oscar Ciutat
 Version: 1.0
-Text Domain: wapc-widget
+Author: Oscar Ciutat
 Author URI: http://oscarciutat.com/code/
+Text Domain: wapc-widget
+License: GPLv2 or later
 WC tested up to: 3.6.5
 
   This program is free software; you can redistribute it and/or modify
