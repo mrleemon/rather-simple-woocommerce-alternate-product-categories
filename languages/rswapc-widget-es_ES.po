@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rather Simple WooCommerce Alternate Product "
 "Categories\n"
-"POT-Creation-Date: 2020-01-04 13:09+0100\n"
-"PO-Revision-Date: 2020-01-04 13:10+0100\n"
+"POT-Creation-Date: 2020-01-04 13:21+0100\n"
+"PO-Revision-Date: 2020-01-04 13:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: ca\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -33,19 +33,19 @@ msgstr ""
 
 #: rather-simple-woocommerce-alternate-product-categories.php:97
 msgid "Select a category"
-msgstr "Seleccioneu una categoria"
+msgstr "Selecciona una categoría"
 
 #: rather-simple-woocommerce-alternate-product-categories.php:208
 msgid "Title:"
-msgstr "Títol:"
+msgstr "Título:"
 
 #: rather-simple-woocommerce-alternate-product-categories.php:213
-msgid "Show product counts"
-msgstr "Mostra número de productes"
+msgid "Show as dropdown"
+msgstr "Mostrar como desplegable"
 
 #: rather-simple-woocommerce-alternate-product-categories.php:217
-msgid "Show dropdown"
-msgstr "Mostra llista desplegable"
+msgid "Show product counts"
+msgstr "Mostrar número de productos"
 
 #. Plugin Name of the plugin/theme
 msgid "Rather Simple WooCommerce Alternate Product Categories"

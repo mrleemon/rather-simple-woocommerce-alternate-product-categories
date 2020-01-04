@@ -140,7 +140,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories extends WP_Widget {
                     
                         echo '<a href="' . get_term_link( $siblingcategory ) . '">' . $siblingcategory->name . '</a>';
                         if ( $count ) {
-                            echo '<span class="count">( ' .  $siblingcategory->count . ' )</span>';
+                            echo ' <span class="count">(' .  $siblingcategory->count . ')</span>';
                         }
                         echo '</li>';
                     }
@@ -159,7 +159,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories extends WP_Widget {
                     foreach ( $subcategories as $subcategory ) {
                         echo '<li class="cat-item cat-item-' . esc_attr( $subcategory->term_id ) . '"><a href="' . esc_url( get_term_link( $subcategory ) ) . '">' . $subcategory->name . '</a>';
                         if ( $count ) {
-                            echo '<span class="count">( ' . $subcategory->count . ' )</span>';
+                            echo ' <span class="count">(' . $subcategory->count . ')</span>';
                         }
                         echo '</li>';
                     }
@@ -209,12 +209,12 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories extends WP_Widget {
             <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
             </p>
             <p>
-            <input class="checkbox" type="checkbox" <?php checked( $count, 'on' ); ?> id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" /> 
-            <label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( 'Show product counts', 'rswapc-widget' ); ?></label>
+            <input class="checkbox" type="checkbox" <?php checked( $dropdown, 'on' ); ?> id="<?php echo $this->get_field_id( 'dropdown' ); ?>" name="<?php echo $this->get_field_name( 'dropdown' ); ?>" /> 
+            <label for="<?php echo $this->get_field_id( 'dropdown' ); ?>"><?php _e( 'Show as dropdown', 'rswapc-widget' ); ?></label>
             </p>
             <p>
-            <input class="checkbox" type="checkbox" <?php checked( $dropdown, 'on' ); ?> id="<?php echo $this->get_field_id( 'dropdown' ); ?>" name="<?php echo $this->get_field_name( 'dropdown' ); ?>" /> 
-            <label for="<?php echo $this->get_field_id( 'dropdown' ); ?>"><?php _e( 'Show dropdown', 'rswapc-widget' ); ?></label>
+            <input class="checkbox" type="checkbox" <?php checked( $count, 'on' ); ?> id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" /> 
+            <label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( 'Show product counts', 'rswapc-widget' ); ?></label>
             </p>
         <?php
     }
