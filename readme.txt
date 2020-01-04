@@ -1,4 +1,4 @@
-=== WooCommerce Alternate Product Categories ===
+=== Rather Simple WooCommerce Alternate Product Categories ===
 Contributors: leemon
 Tags: woocommerce, products, categories, widget
 Requires at least: 4.0
@@ -7,11 +7,11 @@ Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A WooCommerce alternate product categories widget.
+A really simple WooCommerce alternate product categories widget.
 
 == Description ==
 
-A WooCommerce alternate product categories widget.
+A really simple WooCommerce alternate product categories widget.
 
 This plugin is experimental and is provided with no support or warranty. 
 This plugin requires WooCommerce.

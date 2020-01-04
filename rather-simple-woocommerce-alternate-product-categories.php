@@ -1,14 +1,14 @@
 <?php
 /*
-Plugin Name: WooCommerce Alternate Product Categories
-Plugin URI: http://wordpress.org/plugins/woocommerce-alternate-product-categories
-Description: A WooCommerce alternate product categories widget.
+Plugin Name: Rather Simple WooCommerce Alternate Product Categories
+Plugin URI:
+Description: A really simple WooCommerce alternate product categories widget.
 Version: 1.0
+WC tested up to: 3.6.5
 Author: Oscar Ciutat
 Author URI: http://oscarciutat.com/code/
 Text Domain: wapc-widget
 License: GPLv2 or later
-WC tested up to: 3.6.5
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as 
@@ -24,14 +24,14 @@ WC tested up to: 3.6.5
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-class WooCommerce_Alternate_Product_Categories extends WP_Widget {
+class Rather_Simple_WooCommerce_Alternate_Product_Categories extends WP_Widget {
     
     /**
      * Constructor.
      */
     function __construct() {
         load_plugin_textdomain( 'wapc-widget', false, dirname( plugin_basename( __FILE__ ) ) );
-        $widget_ops = array( 'classname' => 'woocommerce widget_alternate_product_categories', 'description' => __( 'A WooCommerce alternate product categories widget', 'wapc-widget' ) );
+        $widget_ops = array( 'classname' => 'woocommerce widget_alternate_product_categories', 'description' => __( 'A really simple WooCommerce alternate product categories widget', 'wapc-widget' ) );
         $control_ops = array( 'width' => 400, 'height' => 350 );
         parent::__construct( 'wapc', __( 'WooCommerce Alternate Product Categories', 'wapc-widget' ), $widget_ops, $control_ops );
     }
@@ -214,4 +214,4 @@ class WooCommerce_Alternate_Product_Categories extends WP_Widget {
     }
 }
 
-add_action( 'widgets_init', function() { return register_widget( 'WooCommerce_Alternate_Product_Categories' ); } );
+add_action( 'widgets_init', function() { return register_widget( 'Rather_Simple_WooCommerce_Alternate_Product_Categories' ); } );
