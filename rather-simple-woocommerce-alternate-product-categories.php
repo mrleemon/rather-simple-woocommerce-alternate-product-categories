@@ -7,7 +7,7 @@ Version: 1.0
 WC tested up to: 3.6.5
 Author: Oscar Ciutat
 Author URI: http://oscarciutat.com/code/
-Text Domain: wapc-widget
+Text Domain: rswapc-widget
 License: GPLv2 or later
 
   This program is free software; you can redistribute it and/or modify
@@ -30,10 +30,16 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories extends WP_Widget {
      * Constructor.
      */
     function __construct() {
-        load_plugin_textdomain( 'wapc-widget', false, dirname( plugin_basename( __FILE__ ) ) );
-        $widget_ops = array( 'classname' => 'woocommerce widget_alternate_product_categories', 'description' => __( 'A really simple WooCommerce alternate product categories widget', 'wapc-widget' ) );
-        $control_ops = array( 'width' => 400, 'height' => 350 );
-        parent::__construct( 'wapc', __( 'WooCommerce Alternate Product Categories', 'wapc-widget' ), $widget_ops, $control_ops );
+        load_plugin_textdomain( 'rswapc-widget', '', dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+        $widget_ops = array(
+            'classname' => 'woocommerce widget_alternate_product_categories',
+            'description' => __( 'A really simple WooCommerce alternate product categories widget', 'rswapc-widget' )
+        );
+        $control_ops = array(
+            'width' => 400,
+            'height' => 350
+        );
+        parent::__construct( 'rswapc', __( 'WooCommerce Alternate Product Categories', 'rswapc-widget' ), $widget_ops, $control_ops );
     }
 
     /**
@@ -142,10 +148,10 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories extends WP_Widget {
                 } else { 
             
                     $args = array(
-                        'orderby'       => 'name', 
-                        'order'         => 'ASC',
-                        'hide_empty'    => true, 
-                        'child_of'      => $term_id 
+                        'orderby'    => 'name', 
+                        'order'      => 'ASC',
+                        'hide_empty' => true, 
+                        'child_of'   => $term_id 
                     );
 
                     $subcategories = get_terms( 'product_cat', $args );
@@ -199,16 +205,16 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories extends WP_Widget {
         
         ?>
             <p>
-            <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'wapc-widget' ); ?></label>
+            <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'rswapc-widget' ); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
             </p>
             <p>
             <input class="checkbox" type="checkbox" <?php checked( $count, 'on' ); ?> id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" /> 
-            <label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( 'Show product counts', 'wapc-widget' ); ?></label>
+            <label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( 'Show product counts', 'rswapc-widget' ); ?></label>
             </p>
             <p>
             <input class="checkbox" type="checkbox" <?php checked( $dropdown, 'on' ); ?> id="<?php echo $this->get_field_id( 'dropdown' ); ?>" name="<?php echo $this->get_field_name( 'dropdown' ); ?>" /> 
-            <label for="<?php echo $this->get_field_id( 'dropdown' ); ?>"><?php _e( 'Show dropdown', 'wapc-widget' ); ?></label>
+            <label for="<?php echo $this->get_field_id( 'dropdown' ); ?>"><?php _e( 'Show dropdown', 'rswapc-widget' ); ?></label>
             </p>
         <?php
     }
