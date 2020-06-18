@@ -4,7 +4,7 @@ Plugin Name: Rather Simple WooCommerce Alternate Product Categories
 Plugin URI:
 Description: A really simple WooCommerce alternate product categories widget.
 Version: 1.0
-WC tested up to: 3.6.5
+WC tested up to: 4.2
 Author: Oscar Ciutat
 Author URI: http://oscarciutat.com/code/
 Text Domain: rswapc-widget
