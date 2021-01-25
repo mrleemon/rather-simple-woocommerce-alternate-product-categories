@@ -101,7 +101,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories extends WP_Widget {
                 echo $output;
                 
                 wc_enqueue_js( "
-                    jQuery( '.dropdown_product_cat' ).change( function() {
+                    jQuery( '.dropdown_product_cat' ).on( 'change', function() {
                         if ( jQuery( this ).val() != '' ) {
                             var this_page = '';
                             var home_url  = '" . esc_js( home_url( '/' ) ) . "';
