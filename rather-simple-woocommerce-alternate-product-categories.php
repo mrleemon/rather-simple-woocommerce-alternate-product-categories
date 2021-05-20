@@ -2,6 +2,7 @@
 /*
 Plugin Name: Rather Simple WooCommerce Alternate Product Categories
 Plugin URI:
+Update URI: false
 Description: A really simple WooCommerce alternate product categories widget.
 Version: 1.0
 WC tested up to: 4.2
