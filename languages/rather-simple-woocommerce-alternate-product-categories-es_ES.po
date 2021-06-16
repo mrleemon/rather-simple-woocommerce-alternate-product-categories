@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rather Simple WooCommerce Alternate Product "
 "Categories\n"
-"POT-Creation-Date: 2020-01-04 13:21+0100\n"
-"PO-Revision-Date: 2020-01-04 13:22+0100\n"
+"POT-Creation-Date: 2021-06-16 10:34+0200\n"
+"PO-Revision-Date: 2021-06-16 10:34+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.4.3\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
@@ -22,37 +22,79 @@ msgstr ""
 "_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
 
-#: rather-simple-woocommerce-alternate-product-categories.php:36
+#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:11
 msgid "A really simple WooCommerce alternate product categories widget"
 msgstr ""
 
-#: rather-simple-woocommerce-alternate-product-categories.php:42
+#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:17
 msgid "WooCommerce Alternate Product Categories"
 msgstr ""
 
-#: rather-simple-woocommerce-alternate-product-categories.php:97
+#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:72
 msgid "Select a category"
 msgstr "Selecciona una categoría"
 
-#: rather-simple-woocommerce-alternate-product-categories.php:208
+#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:183
 msgid "Title:"
 msgstr "Título:"
 
-#: rather-simple-woocommerce-alternate-product-categories.php:213
+#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:188
 msgid "Show as dropdown"
 msgstr "Mostrar como desplegable"
 
-#: rather-simple-woocommerce-alternate-product-categories.php:217
+#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:192
 msgid "Show product counts"
 msgstr "Mostrar número de productos"
+
+#: src/index.js:22
+msgid "Alternate Product Categories"
+msgstr ""
+
+#: src/index.js:23
+msgid "A Mailchimp form."
+msgstr ""
+
+#: src/index.js:26
+msgid "email"
+msgstr ""
+
+#: src/index.js:26
+msgid "newsletter"
+msgstr ""
+
+#: src/index.js:82
+msgid "Mailchimp Settings"
+msgstr ""
+
+#: src/index.js:87
+msgid "URL"
+msgstr ""
+
+#: src/index.js:93
+msgid "U"
+msgstr ""
+
+#: src/index.js:99
+msgid "ID"
+msgstr ""
+
+#: src/index.js:107
+msgid "Show First Name"
+msgstr ""
+
+#: src/index.js:117
+msgid "Show Last Name"
+msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "Rather Simple WooCommerce Alternate Product Categories"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "A really simple WooCommerce alternate product categories widget."
+msgid ""
+"A really simple WooCommerce alternate product categories widget and block."
 msgstr ""
 
 #. Author of the plugin/theme
