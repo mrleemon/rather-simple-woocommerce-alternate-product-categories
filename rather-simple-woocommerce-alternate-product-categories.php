@@ -81,7 +81,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
      *
      */
     protected function includes() {
-        //require_once 'include/rather-simple-woocommerce-alternate-product-categories-widget';
+        require_once 'include/rather-simple-woocommerce-alternate-product-categories-widget.php';
     }
     
     /**
