@@ -28,10 +28,6 @@ const settings = {
         html: false,
     },
 	attributes: {
-		title: {
-			type: 'string',
-			default: '',
-		},
 		count: {
 			type: 'boolean',
 			default: false,
@@ -45,18 +41,28 @@ const settings = {
         from: [
             {
                 type: 'block',
-                blocks: [ 'core/legacy-widget' ],
+                blocks: [ 'occ/alternate-product-categories' ],
                 isMatch: ( { idBase, instance } ) => {
                     if ( ! instance?.raw ) {
                         // Can't transform if raw instance is not shown in REST API.
                         return false;
                     }
-                    return idBase === 'example_widget';
+                    return idBase === 'rswapc';
                 },
                 transform: ( { instance } ) => {
-                    return createBlock( 'occ/alternate-product-categories', {
-                        name: instance.raw.name,
-                    } );
+                    const transformedBlock = createBlock(
+                        'occ/alternate-product-categories',
+                        transform ? transform( instance.raw ) : undefined
+                    );
+                    if ( ! instance.raw?.title ) {
+                        return transformedBlock;
+                    }
+                    return [
+                        createBlock( 'core/heading', {
+                            content: instance.raw.title,
+                        } ),
+                        transformedBlock,
+                    ];
                 },
             },
         ]
@@ -64,10 +70,6 @@ const settings = {
 
 	edit: ( props ) => {
 		const attributes = props.attributes;
-
-		const setTitle = ( value ) => {
-			props.setAttributes( { title: value } );
-		};
 
 		const toggleCount = () => {
 			props.setAttributes( { count: ! props.attributes.count } );
@@ -86,12 +88,6 @@ const settings = {
 							'rather-simple-woocommerce-alternate-product-categories'
 						) }
 					>
-						<TextControl
-							label={ __( 'Title', 'rather-simple-woocommerce-alternate-product-categories' ) }
-							type="text"
-							value={ attributes.title }
-							onChange={ setTitle }
-						/>
                         <ToggleControl
                             label={ __(
                                 'Show product counts',

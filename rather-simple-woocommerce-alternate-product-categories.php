@@ -134,9 +134,6 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
             'editor_script'   => 'rather-simple-woocommerce-alternate-product-categories-block',
             'render_callback' => array( $this, 'render_block' ),
             'attributes' => array(
-                'title' => array(
-                    'type'    => 'string',
-                ),
                 'count' => array(
                     'type'    => 'boolean',
                     'default' => false,
