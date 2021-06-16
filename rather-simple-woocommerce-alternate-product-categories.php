@@ -130,9 +130,8 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
         );
 
         register_block_type( 'occ/alternate-product-categories', array(
-            'editor_script' => 'rather-simple-woocommerce-alternate-product-categories-block',
-            'style' => 'rather-simple-woocommerce-alternate-product-categories-frontend',
-            'script' => 'rather-simple-woocommerce-alternate-product-categories-frontend',
+            'style'           => 'rather-simple-woocommerce-alternate-product-categories-frontend',
+            'editor_script'   => 'rather-simple-woocommerce-alternate-product-categories-block',
             'render_callback' => array( $this, 'render_block' ),
             'attributes' => array(
                 'title' => array(
