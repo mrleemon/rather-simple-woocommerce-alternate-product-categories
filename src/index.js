@@ -20,7 +20,7 @@ const name = 'occ/alternate-product-categories';
 
 const settings = {
 	title: __( 'Alternate Product Categories', 'rather-simple-woocommerce-alternate-product-categories' ),
-	description: __( 'A Mailchimp form.', 'rather-simple-woocommerce-alternate-product-categories' ),
+	description: __( 'An alternate product categories block.', 'rather-simple-woocommerce-alternate-product-categories' ),
 	icon: 'email',
 	category: 'embed',
     keywords: [ __( 'email' ), __( 'newsletter' ) ],
@@ -29,23 +29,15 @@ const settings = {
         multiple: false,
     },
 	attributes: {
-		url: {
+		title: {
 			type: 'string',
 			default: '',
 		},
-		u: {
-			type: 'string',
-			default: '',
-		},
-		id: {
-			type: 'string',
-			default: '',
-		},
-		firstName: {
+		count: {
 			type: 'boolean',
 			default: false,
 		},
-		lastName: {
+		dropdown: {
 			type: 'boolean',
 			default: false,
 		},
@@ -54,24 +46,16 @@ const settings = {
 	edit: ( props ) => {
 		const attributes = props.attributes;
 
-		const setID = ( value ) => {
-			props.setAttributes( { id: value } );
+		const setTitle = ( value ) => {
+			props.setAttributes( { title: value } );
 		};
 
-		const setURL = ( value ) => {
-			props.setAttributes( { url: value } );
+		const toggleCount = () => {
+			props.setAttributes( { count: ! props.attributes.count } );
 		};
 
-		const setU = ( value ) => {
-			props.setAttributes( { u: value } );
-		};
-
-		const toggleFirstName = () => {
-			props.setAttributes( { firstName: ! props.attributes.firstName } );
-		};
-
-		const toggleLastName = () => {
-			props.setAttributes( { lastName: ! props.attributes.lastName } );
+		const toggleDropdown = () => {
+			props.setAttributes( { dropdown: ! props.attributes.dropdown } );
 		};
 
 		return (
@@ -79,53 +63,37 @@ const settings = {
 				<InspectorControls>
 					<PanelBody
 						title={ __(
-							'Mailchimp Settings',
+							'Alternate Product Categories Settings',
 							'rather-simple-woocommerce-alternate-product-categories'
 						) }
 					>
 						<TextControl
-							label={ __( 'URL', 'rather-simple-woocommerce-alternate-product-categories' ) }
-							type="url"
-							value={ attributes.url }
-							onChange={ setURL }
-						/>
-						<TextControl
-							label={ __( 'U', 'rather-simple-woocommerce-alternate-product-categories' ) }
+							label={ __( 'Title', 'rather-simple-woocommerce-alternate-product-categories' ) }
 							type="text"
-							value={ attributes.u }
-							onChange={ setU }
+							value={ attributes.title }
+							onChange={ setTitle }
 						/>
-						<TextControl
-							label={ __( 'ID', 'rather-simple-woocommerce-alternate-product-categories' ) }
-							type="text"
-							value={ attributes.id }
-							onChange={ setID }
-						/>
-						{ attributes.url && attributes.u && attributes.id && (
-							<ToggleControl
-								label={ __(
-									'Show First Name',
-									'rather-simple-woocommerce-alternate-product-categories'
-								) }
-								checked={ !! attributes.firstName }
-								onChange={ toggleFirstName }
-							/>
-						) }
-						{ attributes.url && attributes.u && attributes.id && (
-							<ToggleControl
-								label={ __(
-									'Show Last Name',
-									'rather-simple-woocommerce-alternate-product-categories'
-								) }
-								checked={ !! attributes.lastName }
-								onChange={ toggleLastName }
-							/>
-						) }
+                        <ToggleControl
+                            label={ __(
+                                'Show Count',
+                                'rather-simple-woocommerce-alternate-product-categories'
+                            ) }
+                            checked={ !! attributes.count }
+                            onChange={ toggleCount }
+                        />
+                        <ToggleControl
+                            label={ __(
+                                'Show Dropdown',
+                                'rather-simple-woocommerce-alternate-product-categories'
+                            ) }
+                            checked={ !! attributes.dropdown }
+                            onChange={ toggleDropdown }
+                        />
 					</PanelBody>
 				</InspectorControls>
 				<Disabled>
 					<ServerSideRender
-						block="occ/mailchimp"
+						block="occ/alternate-product-categories"
 						attributes={ attributes }
 						className={ props.className }
 					/>

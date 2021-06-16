@@ -135,24 +135,14 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
             'script' => 'rather-simple-woocommerce-alternate-product-categories-frontend',
             'render_callback' => array( $this, 'render_block' ),
             'attributes' => array(
-                'url' => array(
+                'title' => array(
                     'type'    => 'string',
                 ),
-                'u' => array(
-                    'type'    => 'string',
-                ),
-                'id' => array(
-                    'type'    => 'string',
-                ),
-                'firstName'   => array(
+                'count'   => array(
                     'type'    => 'boolean',
                     'default' => false,
                 ),
-                'lastName'    => array(
-                    'type'    => 'boolean',
-                    'default' => false,
-                ),
-                'placeholder' => array(
+                'dropdown'    => array(
                     'type'    => 'boolean',
                     'default' => false,
                 ),
