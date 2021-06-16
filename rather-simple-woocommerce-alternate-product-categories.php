@@ -163,6 +163,14 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 
     }
 
+    /**
+     * render_block
+     */
+    function render_block( $attr, $content ) {
+        $html = '';
+        return $html;
+    }
+
 }
 
 add_action( 'plugins_loaded', array( Rather_Simple_WooCommerce_Alternate_Product_Categories::get_instance(), 'plugin_setup' ) );
