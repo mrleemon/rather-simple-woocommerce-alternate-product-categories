@@ -63,7 +63,6 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 
         add_action( 'init', array( $this, 'load_language' ) );
         add_action( 'init', array( $this, 'register_block' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 
     }
    
