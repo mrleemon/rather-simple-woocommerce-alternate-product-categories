@@ -158,6 +158,117 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
      */
     function render_block( $attr, $content ) {
         $html = '';
+
+        $term_id = get_queried_object()->term_id;
+        $term = get_term( $term_id, 'product_cat' );
+
+        if ( $term && !is_wp_error( $term ) ) {
+                    
+            if ( $attr['dropdown'] ) {
+
+                if ( $term->parent > 0 ) { 
+                    $args = array(
+                        'orderby'       => 'name', 
+                        'order'         => 'ASC',
+                        'hide_empty'    => true, 
+                        'child_of'      => $term->parent,
+                        'show_count'    => $attr['count'] ? 1 : 0,
+                        'selected'      => $term ? $term->slug : ''
+                    ); 
+                
+                } else {
+                    $args = array(
+                        'orderby'       => 'name', 
+                        'order'         => 'ASC',
+                        'hide_empty'    => true, 
+                        'child_of'      => $term_id,
+                        'show_count'    => $attr['count'] ? 1 : 0,
+                        'selected'      => $term ? $term->slug : ''
+                    );
+                }
+                
+                $current_product_cat = isset( $wp_query->query_vars['product_cat'] ) ? $wp_query->query_vars['product_cat'] : '';
+                $terms = get_terms( 'product_cat', $args );
+                
+                $output  = "<select name='product_cat' class='dropdown_product_cat'>";
+                $output .= '<option value="" ' . selected( $term_id, '', false ) . '>' . __( 'Select a category', 'woocommerce' ) . '</option>';
+                $output .= wc_walk_category_dropdown_tree( $terms, 0, $args );
+                $output .= "</select>";
+
+                $html .= $output;
+                
+                wc_enqueue_js( "
+                    jQuery( '.dropdown_product_cat' ).on( 'change', function() {
+                        if ( jQuery( this ).val() != '' ) {
+                            var this_page = '';
+                            var home_url  = '" . esc_js( home_url( '/' ) ) . "';
+                            if ( home_url.indexOf( '?' ) > 0 ) {
+                                this_page = home_url + '&product_cat=' + jQuery( this ).val();
+                            } else {
+                                this_page = home_url + '?product_cat=' + jQuery( this ).val();
+                            }
+                            location.href = this_page;
+                        }
+                    });
+                " );
+                
+                
+            } else {
+                
+                $html .= '<ul class="product-categories">';
+
+                if ( $term->parent > 0 ) { 
+
+                    $args = array(
+                        'orderby'       => 'name', 
+                        'order'         => 'ASC',
+                        'hide_empty'    => true, 
+                        'child_of'      => $term->parent,
+                    ); 
+
+                    $siblingcategories = get_terms( 'product_cat', $args );
+
+                    foreach ( $siblingcategories as $siblingcategory ) { 
+                        if ($siblingcategory->term_id == $term_id ) {
+                            $html .= '<li class="cat-item cat-item-' . esc_attr( $siblingcategory->term_id ) . ' current-cat">';
+                        } else {
+                            $html .= '<li class="cat-item cat-item-' . esc_attr( $siblingcategory->term_id ) . '">';
+                        }
+                    
+                        $html .= '<a href="' . get_term_link( $siblingcategory ) . '">' . $siblingcategory->name . '</a>';
+                        if ( $attr['count'] ) {
+                            $html .= ' <span class="count">(' .  $siblingcategory->count . ')</span>';
+                        }
+                        $html .= '</li>';
+                    }
+
+                } else { 
+            
+                    $args = array(
+                        'orderby'    => 'name', 
+                        'order'      => 'ASC',
+                        'hide_empty' => true, 
+                        'child_of'   => $term_id 
+                    );
+
+                    $subcategories = get_terms( 'product_cat', $args );
+
+                    foreach ( $subcategories as $subcategory ) {
+                        $html .= '<li class="cat-item cat-item-' . esc_attr( $subcategory->term_id ) . '"><a href="' . esc_url( get_term_link( $subcategory ) ) . '">' . $subcategory->name . '</a>';
+                        if ( $attr['count'] ) {
+                            $html .= ' <span class="count">(' . $subcategory->count . ')</span>';
+                        }
+                        $html .= '</li>';
+                    }
+
+                }
+            
+                $html .= '</ul>';
+                
+            }
+
+        }
+
         return $html;
     }
 
