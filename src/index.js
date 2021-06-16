@@ -21,12 +21,11 @@ const name = 'occ/alternate-product-categories';
 const settings = {
 	title: __( 'Alternate Product Categories', 'rather-simple-woocommerce-alternate-product-categories' ),
 	description: __( 'An alternate product categories block.', 'rather-simple-woocommerce-alternate-product-categories' ),
-	icon: 'email',
-	category: 'embed',
-    keywords: [ __( 'email' ), __( 'newsletter' ) ],
+	icon: 'category',
+	category: 'widgets',
+    keywords: [ __( 'woocommerce' ), __( 'products' ), __( 'categories' ) ],
     supports: {
         html: false,
-        multiple: false,
     },
 	attributes: {
 		title: {
@@ -63,7 +62,7 @@ const settings = {
 				<InspectorControls>
 					<PanelBody
 						title={ __(
-							'Alternate Product Categories Settings',
+							'Settings',
 							'rather-simple-woocommerce-alternate-product-categories'
 						) }
 					>
@@ -75,7 +74,7 @@ const settings = {
 						/>
                         <ToggleControl
                             label={ __(
-                                'Show Count',
+                                'Show product counts',
                                 'rather-simple-woocommerce-alternate-product-categories'
                             ) }
                             checked={ !! attributes.count }
@@ -83,7 +82,7 @@ const settings = {
                         />
                         <ToggleControl
                             label={ __(
-                                'Show Dropdown',
+                                'Show as dropdown',
                                 'rather-simple-woocommerce-alternate-product-categories'
                             ) }
                             checked={ !! attributes.dropdown }

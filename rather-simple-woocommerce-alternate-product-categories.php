@@ -81,7 +81,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
      *
      */
     protected function includes() {
-        require_once 'include/rather-simple-woocommerce-alternate-product-categories-widget';
+        //require_once 'include/rather-simple-woocommerce-alternate-product-categories-widget';
     }
     
     /**
@@ -90,7 +90,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
      * @since 1.0
      *
      */
-    function load_language() {
+    public function load_language() {
         load_plugin_textdomain( 'rather-simple-woocommerce-alternate-product-categories', '', dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
     }
 
@@ -100,7 +100,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
      * @since 1.0
      *
      */
-    function register_block() {
+    public function register_block() {
 
         if ( ! function_exists( 'register_block_type' ) ) {
             // The block editor is not active.
@@ -137,11 +137,11 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
                 'title' => array(
                     'type'    => 'string',
                 ),
-                'count'   => array(
+                'count' => array(
                     'type'    => 'boolean',
                     'default' => false,
                 ),
-                'dropdown'    => array(
+                'dropdown' => array(
                     'type'    => 'boolean',
                     'default' => false,
                 ),
@@ -155,7 +155,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
     /**
      * render_block
      */
-    function render_block( $attr, $content ) {
+    public function render_block( $attr, $content ) {
         $html = '';
 
         $term_id = get_queried_object()->term_id;
