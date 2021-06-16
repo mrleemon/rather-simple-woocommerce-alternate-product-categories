@@ -3,12 +3,12 @@
 Plugin Name: Rather Simple WooCommerce Alternate Product Categories
 Plugin URI:
 Update URI: false
-Description: A really simple WooCommerce alternate product categories widget.
+Description: A really simple WooCommerce alternate product categories widget and block.
 Version: 1.0
 WC tested up to: 4.2
 Author: Oscar Ciutat
 Author URI: http://oscarciutat.com/code/
-Text Domain: rswapc-widget
+Text Domain: rather-simple-woocommerce-alternate-product-categories
 License: GPLv2 or later
 
   This program is free software; you can redistribute it and/or modify
@@ -25,200 +25,145 @@ License: GPLv2 or later
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-class Rather_Simple_WooCommerce_Alternate_Product_Categories extends WP_Widget {
+class Rather_Simple_WooCommerce_Alternate_Product_Categories {
+
+    /**
+     * Plugin instance.
+     *
+     * @since 1.0
+     *
+     */
+    protected static $instance = null;
     
     /**
-     * Constructor.
-     */
-    function __construct() {
-        load_plugin_textdomain( 'rswapc-widget', '', dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-        $widget_ops = array(
-            'classname' => 'woocommerce widget_alternate_product_categories',
-            'description' => __( 'A really simple WooCommerce alternate product categories widget', 'rswapc-widget' )
-        );
-        $control_ops = array(
-            'width' => 400,
-            'height' => 350
-        );
-        parent::__construct( 'rswapc', __( 'WooCommerce Alternate Product Categories', 'rswapc-widget' ), $widget_ops, $control_ops );
-    }
-
-    /**
-     * Output widget.
+     * Access this plugin’s working instance
      *
-     * @see WP_Widget
+     * @since 1.0
      *
-     * @param array $args
-     * @param array $instance
      */
-    function widget( $args, $instance ) {
-        extract( $args );
-        $title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance );
-        $count = $instance['count'] ? true : false;
-        $dropdown = $instance['dropdown'] ? true : false;
+    public static function get_instance() {
         
-        echo $before_widget;
-        
-        if ( !empty( $title ) ) { 
-            echo $before_title . $title . $after_title;
-        };
-        
-        $term_id = get_queried_object()->term_id;
-        $term = get_term( $term_id, 'product_cat' );
-
-        if ( $term && !is_wp_error( $term ) ) {
-                    
-            if ( $dropdown ) {
-
-                if ( $term->parent > 0 ) { 
-                    $args = array(
-                        'orderby'       => 'name', 
-                        'order'         => 'ASC',
-                        'hide_empty'    => true, 
-                        'child_of'      => $term->parent,
-                        'show_count'    => $count ? 1 : 0,
-                        'selected'      => $term ? $term->slug : ''
-                    ); 
-                
-                } else {
-                    $args = array(
-                        'orderby'       => 'name', 
-                        'order'         => 'ASC',
-                        'hide_empty'    => true, 
-                        'child_of'      => $term_id,
-                        'show_count'    => $count ? 1 : 0,
-                        'selected'      => $term ? $term->slug : ''
-                    );
-                }
-                
-                $current_product_cat = isset( $wp_query->query_vars['product_cat'] ) ? $wp_query->query_vars['product_cat'] : '';
-                $terms = get_terms( 'product_cat', $args );
-                
-                $output  = "<select name='product_cat' class='dropdown_product_cat'>";
-                $output .= '<option value="" ' . selected( $term_id, '', false ) . '>' . __( 'Select a category', 'woocommerce' ) . '</option>';
-                $output .= wc_walk_category_dropdown_tree( $terms, 0, $args );
-                $output .= "</select>";
-
-                echo $output;
-                
-                wc_enqueue_js( "
-                    jQuery( '.dropdown_product_cat' ).on( 'change', function() {
-                        if ( jQuery( this ).val() != '' ) {
-                            var this_page = '';
-                            var home_url  = '" . esc_js( home_url( '/' ) ) . "';
-                            if ( home_url.indexOf( '?' ) > 0 ) {
-                                this_page = home_url + '&product_cat=' + jQuery( this ).val();
-                            } else {
-                                this_page = home_url + '?product_cat=' + jQuery( this ).val();
-                            }
-                            location.href = this_page;
-                        }
-                    });
-                " );
-                
-                
-            } else {
-                
-                echo '<ul class="product-categories">';
-
-                if ( $term->parent > 0 ) { 
-
-                    $args = array(
-                        'orderby'       => 'name', 
-                        'order'         => 'ASC',
-                        'hide_empty'    => true, 
-                        'child_of'      => $term->parent,
-                    ); 
-
-                    $siblingcategories = get_terms( 'product_cat', $args );
-
-                    foreach ( $siblingcategories as $siblingcategory ) { 
-                        if ($siblingcategory->term_id == $term_id ) {
-                            echo '<li class="cat-item cat-item-' . esc_attr( $siblingcategory->term_id ) . ' current-cat">';
-                        } else {
-                            echo '<li class="cat-item cat-item-' . esc_attr( $siblingcategory->term_id ) . '">';
-                        }
-                    
-                        echo '<a href="' . get_term_link( $siblingcategory ) . '">' . $siblingcategory->name . '</a>';
-                        if ( $count ) {
-                            echo ' <span class="count">(' .  $siblingcategory->count . ')</span>';
-                        }
-                        echo '</li>';
-                    }
-
-                } else { 
-            
-                    $args = array(
-                        'orderby'    => 'name', 
-                        'order'      => 'ASC',
-                        'hide_empty' => true, 
-                        'child_of'   => $term_id 
-                    );
-
-                    $subcategories = get_terms( 'product_cat', $args );
-
-                    foreach ( $subcategories as $subcategory ) {
-                        echo '<li class="cat-item cat-item-' . esc_attr( $subcategory->term_id ) . '"><a href="' . esc_url( get_term_link( $subcategory ) ) . '">' . $subcategory->name . '</a>';
-                        if ( $count ) {
-                            echo ' <span class="count">(' . $subcategory->count . ')</span>';
-                        }
-                        echo '</li>';
-                    }
-
-                }
-            
-                echo '</ul>';
-                
-            }
-
+        if ( !self::$instance ) {
+            self::$instance = new self;
         }
 
-        echo $after_widget;
+        return self::$instance;
+
+    }
+    
+    /**
+     * Used for regular plugin work.
+     *
+     * @since 1.0
+     *
+     */
+    public function plugin_setup() {
+
+        $this->includes();
+
+        add_action( 'init', array( $this, 'load_language' ) );
+        add_action( 'init', array( $this, 'register_block' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
+
+    }
+   
+    /**
+     * Constructor. Intentionally left empty and public.
+     *
+     * @since 1.0
+     *
+     */
+    public function __construct() {}
+    
+    /**
+     * Includes required core files used in admin and on the frontend.
+     *
+     * @since 1.0
+     *
+     */
+    protected function includes() {
+        require_once 'include/rather-simple-woocommerce-alternate-product-categories-widget';
+    }
+    
+    /**
+     * Loads language
+     *
+     * @since 1.0
+     *
+     */
+    function load_language() {
+        load_plugin_textdomain( 'rather-simple-woocommerce-alternate-product-categories', '', dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
     }
 
     /**
-     * Updates a particular instance of a widget.
+     * Registers block
      *
-     * @see    WP_Widget->update
-     * @param  array $new_instance
-     * @param  array $old_instance
-     * @return array
+     * @since 1.0
+     *
      */
-    function update( $new_instance, $old_instance ) {
-        $instance = $old_instance;
-        $instance['title'] = strip_tags( $new_instance['title'] );
-        $instance['count'] = $new_instance['count'];
-        $instance['dropdown'] = $new_instance['dropdown'];
-        return $instance;
-    }
+    function register_block() {
 
-    /**
-     * Outputs the settings update form.
-     *
-     * @see   WP_Widget->form
-     * @param array $instance
-     */
-     function form( $instance ) {
-        $instance = wp_parse_args( ( array ) $instance, array( 'title' => '', 'count' => 'off', 'dropdown' => 'off' ) );
-        $title = strip_tags( $instance['title'] );
-        $count = $instance['count'];
-        $dropdown = $instance['dropdown'];
+        if ( ! function_exists( 'register_block_type' ) ) {
+            // The block editor is not active.
+            return;
+        }
+
+        $dir = dirname( __FILE__ );
+        $script_asset_path = "$dir/build/index.asset.php";
+        if ( ! file_exists( $script_asset_path ) ) {
+            throw new Error(
+                'You need to run `npm start` or `npm run build` for the block first.'
+            );
+        }
+        $script_asset = require( $script_asset_path );
         
-        ?>
-            <p>
-            <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'rswapc-widget' ); ?></label>
-            <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-            </p>
-            <p>
-            <input class="checkbox" type="checkbox" <?php checked( $dropdown, 'on' ); ?> id="<?php echo $this->get_field_id( 'dropdown' ); ?>" name="<?php echo $this->get_field_name( 'dropdown' ); ?>" /> 
-            <label for="<?php echo $this->get_field_id( 'dropdown' ); ?>"><?php _e( 'Show as dropdown', 'rswapc-widget' ); ?></label>
-            </p>
-            <p>
-            <input class="checkbox" type="checkbox" <?php checked( $count, 'on' ); ?> id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" /> 
-            <label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( 'Show product counts', 'rswapc-widget' ); ?></label>
-            </p>
-        <?php
+        wp_register_style(
+            'rather-simple-woocommerce-alternate-product-categories-frontend',
+            plugins_url( 'build/style-index.css', __FILE__ ),
+            array(),
+            filemtime( plugin_dir_path( __FILE__ ) . 'build/style-index.css' )
+        );
+        wp_register_script(
+            'rather-simple-woocommerce-alternate-product-categories-block',
+            plugins_url( 'build/index.js', __FILE__ ),
+            $script_asset['dependencies'],
+            filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' )
+        );
+
+        register_block_type( 'occ/alternate-product-categories', array(
+            'editor_script' => 'rather-simple-woocommerce-alternate-product-categories-block',
+            'style' => 'rather-simple-woocommerce-alternate-product-categories-frontend',
+            'script' => 'rather-simple-woocommerce-alternate-product-categories-frontend',
+            'render_callback' => array( $this, 'render_block' ),
+            'attributes' => array(
+                'url' => array(
+                    'type'    => 'string',
+                ),
+                'u' => array(
+                    'type'    => 'string',
+                ),
+                'id' => array(
+                    'type'    => 'string',
+                ),
+                'firstName'   => array(
+                    'type'    => 'boolean',
+                    'default' => false,
+                ),
+                'lastName'    => array(
+                    'type'    => 'boolean',
+                    'default' => false,
+                ),
+                'placeholder' => array(
+                    'type'    => 'boolean',
+                    'default' => false,
+                ),
+            ),
+        ) );
+
+        wp_set_script_translations( 'rather-simple-woocommerce-alternate-product-categories-block', 'rather-simple-woocommerce-alternate-product-categories', plugin_dir_path( __FILE__ ) . 'languages' );
+
     }
+
 }
 
-add_action( 'widgets_init', function() { return register_widget( 'Rather_Simple_WooCommerce_Alternate_Product_Categories' ); } );
+add_action( 'plugins_loaded', array( Rather_Simple_WooCommerce_Alternate_Product_Categories::get_instance(), 'plugin_setup' ) );
