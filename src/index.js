@@ -41,6 +41,26 @@ const settings = {
 			default: false,
 		},
 	},
+    transforms: {
+        from: [
+            {
+                type: 'block',
+                blocks: [ 'core/legacy-widget' ],
+                isMatch: ( { idBase, instance } ) => {
+                    if ( ! instance?.raw ) {
+                        // Can't transform if raw instance is not shown in REST API.
+                        return false;
+                    }
+                    return idBase === 'example_widget';
+                },
+                transform: ( { instance } ) => {
+                    return createBlock( 'occ/alternate-product-categories', {
+                        name: instance.raw.name,
+                    } );
+                },
+            },
+        ]
+    },
 
 	edit: ( props ) => {
 		const attributes = props.attributes;
