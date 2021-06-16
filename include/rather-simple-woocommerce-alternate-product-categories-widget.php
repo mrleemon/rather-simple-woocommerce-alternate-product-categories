@@ -8,7 +8,8 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
     function __construct() {
         $widget_ops = array(
             'classname' => 'woocommerce widget_alternate_product_categories',
-            'description' => __( 'A really simple WooCommerce alternate product categories widget', 'rather-simple-woocommerce-alternate-product-categories' )
+            'description' => __( 'A really simple WooCommerce alternate product categories widget', 'rather-simple-woocommerce-alternate-product-categories' ),
+            'show_instance_in_rest' => true
         );
         parent::__construct( 'rswapc', __( 'WooCommerce Alternate Product Categories', 'rather-simple-woocommerce-alternate-product-categories' ), $widget_ops );
     }
