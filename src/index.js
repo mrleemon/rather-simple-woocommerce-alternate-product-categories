@@ -10,7 +10,7 @@ import {
 	ToggleControl,
 } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
-import { registerBlockType } from '@wordpress/blocks';
+import { createBlock, registerBlockType } from '@wordpress/blocks';
 import ServerSideRender from '@wordpress/server-side-render';
 
 import './style.scss';
@@ -38,7 +38,7 @@ const settings = {
 		},
 	},
     transforms: {
-        from: [
+        to: [
             {
                 type: 'block',
                 blocks: [ 'occ/alternate-product-categories' ],
@@ -52,7 +52,11 @@ const settings = {
                 transform: ( { instance } ) => {
                     const transformedBlock = createBlock(
                         'occ/alternate-product-categories',
-                        transform ? transform( instance.raw ) : undefined
+                        {
+                            count: instance.raw.count,
+                            dropdown: instance.raw.dropdown,
+                        }
+                        //transform ? transform( instance.raw ) : undefined
                     );
                     if ( ! instance.raw?.title ) {
                         return transformedBlock;
