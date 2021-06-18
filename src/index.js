@@ -6,7 +6,6 @@ import { Fragment } from '@wordpress/element';
 import {
     Disabled,
 	PanelBody,
-	TextControl,
 	ToggleControl,
 } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
