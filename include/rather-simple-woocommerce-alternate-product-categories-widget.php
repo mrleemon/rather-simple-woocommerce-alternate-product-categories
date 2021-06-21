@@ -25,9 +25,9 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
     function widget( $args, $instance ) {
         extract( $args );
         $title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance );
-        $count = $instance['count'] ? true : false;
-        $dropdown = $instance['dropdown'] ? true : false;
-        
+		$dropdown = ! empty( $instance['dropdown'] ) ? true : false;
+        $count    = ! empty( $instance['count'] ) ? true : false;
+
         echo $before_widget;
         
         if ( !empty( $title ) ) { 
@@ -157,9 +157,9 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
      */
     function update( $new_instance, $old_instance ) {
         $instance = $old_instance;
-        $instance['title'] = strip_tags( $new_instance['title'] );
-        $instance['count'] = $new_instance['count'];
-        $instance['dropdown'] = $new_instance['dropdown'];
+        $instance['title']    = sanitize_text_field( $new_instance['title'] );
+        $instance['count']    = ! empty( $new_instance['count'] ) ? 1 : 0;
+		$instance['dropdown'] = ! empty( $new_instance['dropdown'] ) ? 1 : 0;
         return $instance;
     }
 
@@ -170,22 +170,21 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
      * @param array $instance
      */
      function form( $instance ) {
-        $instance = wp_parse_args( ( array ) $instance, array( 'title' => '', 'count' => 'off', 'dropdown' => 'off' ) );
-        $title = strip_tags( $instance['title'] );
-        $count = $instance['count'];
-        $dropdown = $instance['dropdown'];
-        
+        $instance = wp_parse_args( ( array ) $instance, array( 'title' => '' ) );
+		$dropdown = isset( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
+        $count    = isset( $instance['count'] ) ? (bool) $instance['count'] : false;
+
         ?>
             <p>
             <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'rather-simple-woocommerce-alternate-product-categories' ); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
             </p>
             <p>
-            <input class="checkbox" type="checkbox" <?php checked( $dropdown, 'on' ); ?> id="<?php echo $this->get_field_id( 'dropdown' ); ?>" name="<?php echo $this->get_field_name( 'dropdown' ); ?>" /> 
+            <input class="checkbox" type="checkbox" <?php checked( $dropdown ); ?> id="<?php echo $this->get_field_id( 'dropdown' ); ?>" name="<?php echo $this->get_field_name( 'dropdown' ); ?>" /> 
             <label for="<?php echo $this->get_field_id( 'dropdown' ); ?>"><?php _e( 'Show as dropdown', 'rather-simple-woocommerce-alternate-product-categories' ); ?></label>
             </p>
             <p>
-            <input class="checkbox" type="checkbox" <?php checked( $count, 'on' ); ?> id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" /> 
+            <input class="checkbox" type="checkbox" <?php checked( $count ); ?> id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" /> 
             <label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( 'Show product counts', 'rather-simple-woocommerce-alternate-product-categories' ); ?></label>
             </p>
         <?php
