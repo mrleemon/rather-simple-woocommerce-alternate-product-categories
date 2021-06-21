@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rather Simple WooCommerce Alternate Product "
 "Categories\n"
-"POT-Creation-Date: 2021-06-16 16:48+0200\n"
-"PO-Revision-Date: 2021-06-16 16:49+0200\n"
+"POT-Creation-Date: 2021-06-21 11:52+0200\n"
+"PO-Revision-Date: 2021-06-21 11:53+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -28,56 +28,52 @@ msgstr ""
 msgid "A really simple WooCommerce alternate product categories widget"
 msgstr ""
 
-#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:17
+#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:14
 msgid "WooCommerce Alternate Product Categories"
 msgstr ""
 
-#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:72
-#: rather-simple-woocommerce-alternate-product-categories.php:193
+#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:69
+#: rather-simple-woocommerce-alternate-product-categories.php:190
 msgid "Select a category"
 msgstr "Seleccioneu una categoria"
 
-#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:183
+#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:179
 msgid "Title:"
 msgstr "Títol:"
 
-#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:188
-#: src/index.js:85
+#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:184
+#: src/index.js:95
 msgid "Show as dropdown"
 msgstr "Mostra com a desplegable"
 
-#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:192
-#: src/index.js:77
+#: include/rather-simple-woocommerce-alternate-product-categories-widget.php:188
+#: src/index.js:103
 msgid "Show product counts"
 msgstr "Mostra número de productes"
 
-#: src/index.js:22
+#: src/index.js:21
 msgid "Alternate Product Categories"
 msgstr ""
 
-#: src/index.js:23
+#: src/index.js:22
 msgid "An alternate product categories block."
 msgstr ""
 
-#: src/index.js:26
+#: src/index.js:25
 msgid "woocommerce"
 msgstr ""
 
-#: src/index.js:26
+#: src/index.js:25
 msgid "products"
 msgstr ""
 
-#: src/index.js:26
+#: src/index.js:25
 msgid "categories"
 msgstr ""
 
-#: src/index.js:65
-msgid "Alternate Product Categories Settings"
+#: src/index.js:89
+msgid "Settings"
 msgstr ""
-
-#: src/index.js:70
-msgid "Title"
-msgstr "Títol"
 
 #. Plugin Name of the plugin/theme
 msgid "Rather Simple WooCommerce Alternate Product Categories"
@@ -95,3 +91,6 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://oscarciutat.com/code/"
 msgstr ""
+
+#~ msgid "Title"
+#~ msgstr "Títol"
