@@ -27,20 +27,20 @@ const settings = {
         html: false,
     },
 	attributes: {
-		count: {
+		dropdown: {
 			type: 'boolean',
 			default: false,
 		},
-		dropdown: {
+		count: {
 			type: 'boolean',
 			default: false,
 		},
 	},
     transforms: {
-        to: [
+        from: [
             {
                 type: 'block',
-                blocks: [ 'occ/alternate-product-categories' ],
+                blocks: [ 'core/legacy-widget' ],
                 isMatch: ( { idBase, instance } ) => {
                     if ( ! instance?.raw ) {
                         // Can't transform if raw instance is not shown in REST API.
@@ -52,10 +52,9 @@ const settings = {
                     const transformedBlock = createBlock(
                         'occ/alternate-product-categories',
                         {
-                            count: instance.raw.count,
                             dropdown: instance.raw.dropdown,
+                            count: instance.raw.count,
                         }
-                        //transform ? transform( instance.raw ) : undefined
                     );
                     if ( ! instance.raw?.title ) {
                         return transformedBlock;
@@ -74,15 +73,15 @@ const settings = {
 	edit: ( props ) => {
 		const attributes = props.attributes;
 
-		const toggleCount = () => {
-			props.setAttributes( { count: ! props.attributes.count } );
-		};
-
 		const toggleDropdown = () => {
 			props.setAttributes( { dropdown: ! props.attributes.dropdown } );
 		};
 
-		return (
+		const toggleCount = () => {
+			props.setAttributes( { count: ! props.attributes.count } );
+		};
+
+        return (
 			<Fragment>
 				<InspectorControls>
 					<PanelBody
@@ -93,19 +92,19 @@ const settings = {
 					>
                         <ToggleControl
                             label={ __(
-                                'Show product counts',
-                                'rather-simple-woocommerce-alternate-product-categories'
-                            ) }
-                            checked={ !! attributes.count }
-                            onChange={ toggleCount }
-                        />
-                        <ToggleControl
-                            label={ __(
                                 'Show as dropdown',
                                 'rather-simple-woocommerce-alternate-product-categories'
                             ) }
                             checked={ !! attributes.dropdown }
                             onChange={ toggleDropdown }
+                        />
+                        <ToggleControl
+                            label={ __(
+                                'Show product counts',
+                                'rather-simple-woocommerce-alternate-product-categories'
+                            ) }
+                            checked={ !! attributes.count }
+                            onChange={ toggleCount }
                         />
 					</PanelBody>
 				</InspectorControls>
