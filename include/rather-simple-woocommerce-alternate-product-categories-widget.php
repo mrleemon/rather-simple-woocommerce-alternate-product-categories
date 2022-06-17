@@ -168,6 +168,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 	 */
 	public function form( $instance ) {
 		$instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
+		$title    = $instance['title'];
 		$dropdown = isset( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
 		$count    = isset( $instance['count'] ) ? (bool) $instance['count'] : false;
 
