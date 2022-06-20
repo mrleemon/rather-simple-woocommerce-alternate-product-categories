@@ -4,6 +4,12 @@
  *
  * @package rather_simple_woocommerce_alternate_product_categories
  */
+
+/**
+ * Core class used to implement the widget.
+ *
+ * @see WP_Widget
+ */
 class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_Widget {
 
 	/**

@@ -26,6 +26,10 @@
  *
  * @package rather_simple_wooCommerce_alternate_product_categories
  */
+
+/**
+ * Core class used to implement the plugin.
+ */
 class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 
 	/**
@@ -69,14 +73,14 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 	 * Includes required core files used in admin and on the frontend.
 	 */
 	protected function includes() {
-		require_once 'include/rather-simple-woocommerce-alternate-product-categories-widget.php';
+		require_once 'include/class-rather-simple-woocommerce-alternate-product-categories-widget.php';
 	}
 
 	/**
 	 * Loads language
 	 */
 	public function load_language() {
-		load_plugin_textdomain( 'rather-simple-woocommerce-alternate-product-categories', '', dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'rather-simple-woocommerce-alternate-product-categories', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	/**
@@ -139,6 +143,9 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 
 	/**
 	 * Render block.
+	 *
+	 * @param array $attr     The block attributes.
+	 * @param array $content  The content.
 	 */
 	public function render_block( $attr, $content ) {
 		$html    = '';
@@ -213,7 +220,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 					$siblingcategories = get_terms( 'product_cat', $cat_args );
 
 					foreach ( $siblingcategories as $siblingcategory ) {
-						if ( $siblingcategory->term_id == $term_id ) {
+						if ( $siblingcategory->term_id === $term_id ) {
 							$html .= '<li class="cat-item cat-item-' . esc_attr( $siblingcategory->term_id ) . ' current-cat">';
 						} else {
 							$html .= '<li class="cat-item cat-item-' . esc_attr( $siblingcategory->term_id ) . '">';
