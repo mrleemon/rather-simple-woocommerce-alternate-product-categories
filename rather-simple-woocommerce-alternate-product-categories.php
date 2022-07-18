@@ -3,12 +3,14 @@
  * Plugin Name: Rather Simple WooCommerce Alternate Product Categories
  * Plugin URI:
  * Update URI: false
- * Description: A really simple WooCommerce alternate product categories widget and block.
  * Version: 2.0
+ * Requires at least: 5.3
+ * Requires PHP: 7.0
  * WC tested up to: 5.6
  * Author: Oscar Ciutat
  * Author URI: http://oscarciutat.com/code/
  * Text Domain: rather-simple-woocommerce-alternate-product-categories
+ * Description: A really simple WooCommerce alternate product categories widget and block.
  * License: GPLv2 or later
  *
  * This program is free software; you can redistribute it and/or modify
