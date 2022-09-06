@@ -46,7 +46,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# Dependencies
+# Node.
+lib
 node_modules
+npm-debug.log
 package-lock.json
 
