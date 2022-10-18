@@ -63,6 +63,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 
 		add_action( 'init', array( $this, 'load_language' ) );
 		add_action( 'init', array( $this, 'register_block' ) );
+		add_action( 'before_woocommerce_init', array( $this, 'declare_wchpos_compatibility' ) );
 
 	}
 
@@ -83,6 +84,15 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 	 */
 	public function load_language() {
 		load_plugin_textdomain( 'rather-simple-woocommerce-alternate-product-categories', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	}
+
+	/**
+	 * Declare WooCommerce High-Performance Order Storage compatibility
+	 */
+	public function declare_wchpos_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
 	}
 
 	/**
