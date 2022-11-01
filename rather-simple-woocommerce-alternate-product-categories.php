@@ -4,7 +4,7 @@
  * Plugin URI:
  * Update URI: false
  * Version: 2.0
- * Requires at least: 5.3
+ * Requires at least: 5.8
  * Requires PHP: 7.0
  * WC tested up to: 5.6
  * Author: Oscar Ciutat
@@ -107,49 +107,17 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 			return;
 		}
 
-		$dir               = dirname( __FILE__ );
-		$script_asset_path = "$dir/build/index.asset.php";
-		if ( ! file_exists( $script_asset_path ) ) {
-			throw new Error(
-				'You need to run `npm start` or `npm run build` for the block first.'
-			);
-		}
-		$script_asset = require $script_asset_path;
-
-		wp_register_style(
-			'rather-simple-woocommerce-alternate-product-categories-frontend',
-			plugins_url( 'build/style-index.css', __FILE__ ),
-			array(),
-			filemtime( plugin_dir_path( __FILE__ ) . 'build/style-index.css' )
-		);
-		wp_register_script(
-			'rather-simple-woocommerce-alternate-product-categories-block',
-			plugins_url( 'build/index.js', __FILE__ ),
-			$script_asset['dependencies'],
-			filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' ),
-			true
-		);
-
+		// Register the block by passing the location of block.json to register_block_type.
 		register_block_type(
-			'occ/alternate-product-categories',
+			__DIR__ . '/build/blocks/alternate-product-categories',
 			array(
-				'style'           => 'rather-simple-woocommerce-alternate-product-categories-frontend',
-				'editor_script'   => 'rather-simple-woocommerce-alternate-product-categories-block',
 				'render_callback' => array( $this, 'render_block' ),
-				'attributes'      => array(
-					'count'    => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-					'dropdown' => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-				),
 			)
 		);
 
-		wp_set_script_translations( 'rather-simple-woocommerce-alternate-product-categories-block', 'rather-simple-woocommerce-alternate-product-categories', plugin_dir_path( __FILE__ ) . 'languages' );
+		// Load translations.
+		$script_handle = generate_block_asset_handle( 'occ/alternate-product-categories', 'editorScript' );
+		wp_set_script_translations( $script_handle, 'rather-simple-woocommerce-alternate-product-categories', plugin_dir_path( __FILE__ ) . 'languages' );
 
 	}
 

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "occ/alternate-product-categories",
+  "title": "Alternate Product Categories",
+  "description": "An alternate product categories block.",
+  "textdomain": "rather-simple-woocommerce-alternate-product-categories",
+  "icon": "category",
+  "category": "widgets",
+  "attributes": {
+    "dropdown": {
+      "type": "boolean",
+      "default": false
+    },
+    "count": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "editorStyle": "file:./index.css"
+}
