@@ -6,7 +6,7 @@
  * Version: 2.0
  * Requires at least: 5.8
  * Requires PHP: 7.0
- * WC tested up to: 5.6
+ * WC tested up to: 7.1
  * Author: Oscar Ciutat
  * Author URI: http://oscarciutat.com/code/
  * Text Domain: rather-simple-woocommerce-alternate-product-categories
