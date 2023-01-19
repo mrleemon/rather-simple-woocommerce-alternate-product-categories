@@ -169,18 +169,21 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 
 				wc_enqueue_js(
 					"
-                    jQuery( '.dropdown_product_cat' ).on( 'change', function() {
-                        if ( jQuery( this ).val() != '' ) {
-                            var this_page = '';
-                            var home_url  = '" . esc_js( home_url( '/' ) ) . "';
-                            if ( home_url.indexOf( '?' ) > 0 ) {
-                                this_page = home_url + '&product_cat=' + jQuery( this ).val();
-                            } else {
-                                this_page = home_url + '?product_cat=' + jQuery( this ).val();
-                            }
-                            location.href = this_page;
-                        }
-                    });
+                    var dropdown = document.querySelector( '.dropdown_product_cat' );
+					if ( dropdown ) {
+						dropdown.addEventListener( 'change', function() {
+                        	if ( this.value !== '' ) {
+                            	var this_page = '';
+                            	var home_url  = '" . esc_js( home_url( '/' ) ) . "';
+                            	if ( home_url.indexOf( '?' ) > 0 ) {
+                                	this_page = home_url + '&product_cat=' + this.value;
+                            	} else {
+	                                this_page = home_url + '?product_cat=' + this.value;
+    	                        }
+        	                    location.href = this_page;
+            	            }
+                    	});
+					}
                 "
 				);
 
