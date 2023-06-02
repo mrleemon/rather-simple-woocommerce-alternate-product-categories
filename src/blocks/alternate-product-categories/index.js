@@ -17,28 +17,9 @@ import './style.scss';
 import './editor.scss';
 
 const { name } = metadata;
-//const name = 'occ/alternate-product-categories';
 
 const settings = {
-	/*title: __( 'Alternate Product Categories', 'rather-simple-woocommerce-alternate-product-categories' ),
-	description: __( 'An alternate product categories block.', 'rather-simple-woocommerce-alternate-product-categories' ),
-	icon: 'category',
-	category: 'widgets',
-    keywords: [ __( 'woocommerce' ), __( 'products' ), __( 'categories' ) ],
-    supports: {
-        html: false,
-    },
-	attributes: {
-		dropdown: {
-			type: 'boolean',
-			default: false,
-		},
-		count: {
-			type: 'boolean',
-			default: false,
-		},
-	},*/
-	
+    
     transforms: {
         from: [
             {
