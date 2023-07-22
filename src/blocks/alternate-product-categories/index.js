@@ -3,6 +3,8 @@
  */
 import { __ } from '@wordpress/i18n';
 import {
+    SVG,
+    Path,
     Disabled,
     PanelBody,
     ToggleControl,
