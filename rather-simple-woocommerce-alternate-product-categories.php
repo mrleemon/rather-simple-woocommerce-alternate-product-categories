@@ -51,7 +51,6 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 		}
 
 		return self::$instance;
-
 	}
 
 	/**
@@ -64,7 +63,6 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 		add_action( 'init', array( $this, 'load_language' ) );
 		add_action( 'init', array( $this, 'register_block' ) );
 		add_action( 'before_woocommerce_init', array( $this, 'declare_wchpos_compatibility' ) );
-
 	}
 
 	/**
@@ -118,16 +116,14 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 		// Load translations.
 		$script_handle = generate_block_asset_handle( 'occ/alternate-product-categories', 'editorScript' );
 		wp_set_script_translations( $script_handle, 'rather-simple-woocommerce-alternate-product-categories', plugin_dir_path( __FILE__ ) . 'languages' );
-
 	}
 
 	/**
 	 * Render block.
 	 *
 	 * @param array $attr     The block attributes.
-	 * @param array $content  The content.
 	 */
-	public function render_block( $attr, $content ) {
+	public function render_block( $attr ) {
 		$html    = '';
 		$term_id = get_queried_object()->term_id;
 		$term    = get_term( $term_id, 'product_cat' );
@@ -138,6 +134,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 
 				if ( $term->parent > 0 ) {
 					$cat_args = array(
+						'taxonomy'   => 'product_cat',
 						'orderby'    => 'name',
 						'order'      => 'ASC',
 						'hide_empty' => true,
@@ -148,6 +145,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 
 				} else {
 					$cat_args = array(
+						'taxonomy'   => 'product_cat',
 						'orderby'    => 'name',
 						'order'      => 'ASC',
 						'hide_empty' => true,
@@ -158,7 +156,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 				}
 
 				$current_product_cat = isset( $wp_query->query_vars['product_cat'] ) ? $wp_query->query_vars['product_cat'] : '';
-				$terms               = get_terms( 'product_cat', $cat_args );
+				$terms               = get_terms( $cat_args );
 
 				$output  = "<select name='product_cat' class='dropdown_product_cat'>";
 				$output .= '<option value="" ' . selected( $term_id, '', false ) . '>' . __( 'Select a category', 'woocommerce' ) . '</option>';
@@ -194,13 +192,14 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 				if ( $term->parent > 0 ) {
 
 					$cat_args = array(
+						'taxonomy'   => 'product_cat',
 						'orderby'    => 'name',
 						'order'      => 'ASC',
 						'hide_empty' => true,
 						'child_of'   => $term->parent,
 					);
 
-					$siblingcategories = get_terms( 'product_cat', $cat_args );
+					$siblingcategories = get_terms( $cat_args );
 
 					foreach ( $siblingcategories as $siblingcategory ) {
 						if ( $siblingcategory->term_id === $term_id ) {
@@ -218,13 +217,14 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 				} else {
 
 					$cat_args = array(
+						'taxonomy'   => 'product_cat',
 						'orderby'    => 'name',
 						'order'      => 'ASC',
 						'hide_empty' => true,
 						'child_of'   => $term_id,
 					);
 
-					$subcategories = get_terms( 'product_cat', $cat_args );
+					$subcategories = get_terms( $cat_args );
 
 					foreach ( $subcategories as $subcategory ) {
 						$html .= '<li class="cat-item cat-item-' . esc_attr( $subcategory->term_id ) . '"><a href="' . esc_url( get_term_link( $subcategory ) ) . '">' . $subcategory->name . '</a>';
@@ -242,7 +242,6 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 
 		return $html;
 	}
-
 }
 
 add_action( 'plugins_loaded', array( Rather_Simple_WooCommerce_Alternate_Product_Categories::get_instance(), 'plugin_setup' ) );

@@ -39,7 +39,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 
 		if ( ! empty( $title ) ) {
 			echo $args['before_title'] . $title . $args['after_title'];
-		};
+		}
 
 		$term_id = get_queried_object()->term_id;
 		$term    = get_term( $term_id, 'product_cat' );
@@ -60,6 +60,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 
 				} else {
 					$cat_args = array(
+						'taxonomy'   => 'product_cat',
 						'orderby'    => 'name',
 						'order'      => 'ASC',
 						'hide_empty' => true,
@@ -70,7 +71,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 				}
 
 				$current_product_cat = isset( $wp_query->query_vars['product_cat'] ) ? $wp_query->query_vars['product_cat'] : '';
-				$terms               = get_terms( 'product_cat', $cat_args );
+				$terms               = get_terms( $cat_args );
 
 				$output  = "<select name='product_cat' class='dropdown_product_cat'>";
 				$output .= '<option value="" ' . selected( $term_id, '', false ) . '>' . __( 'Select a category', 'woocommerce' ) . '</option>';
@@ -106,16 +107,17 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 				if ( $term->parent > 0 ) {
 
 					$cat_args = array(
+						'taxonomy'   => 'product_cat',
 						'orderby'    => 'name',
 						'order'      => 'ASC',
 						'hide_empty' => true,
 						'child_of'   => $term->parent,
 					);
 
-					$siblingcategories = get_terms( 'product_cat', $cat_args );
+					$siblingcategories = get_terms( $cat_args );
 
 					foreach ( $siblingcategories as $siblingcategory ) {
-						if ( $siblingcategory->term_id == $term_id ) {
+						if ( $siblingcategory->term_id === $term_id ) {
 							echo '<li class="cat-item cat-item-' . esc_attr( $siblingcategory->term_id ) . ' current-cat">';
 						} else {
 							echo '<li class="cat-item cat-item-' . esc_attr( $siblingcategory->term_id ) . '">';
@@ -130,13 +132,14 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 				} else {
 
 					$cat_args = array(
+						'taxonomy'   => 'product_cat',
 						'orderby'    => 'name',
 						'order'      => 'ASC',
 						'hide_empty' => true,
 						'child_of'   => $term_id,
 					);
 
-					$subcategories = get_terms( 'product_cat', $cat_args );
+					$subcategories = get_terms( $cat_args );
 
 					foreach ( $subcategories as $subcategory ) {
 						echo '<li class="cat-item cat-item-' . esc_attr( $subcategory->term_id ) . '"><a href="' . esc_url( get_term_link( $subcategory ) ) . '">' . $subcategory->name . '</a>';
@@ -200,7 +203,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 
 add_action(
 	'widgets_init',
-	function() {
+	function () {
 		return register_widget( 'Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget' );
 	}
 );
