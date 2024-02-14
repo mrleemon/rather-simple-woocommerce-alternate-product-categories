@@ -6,6 +6,7 @@
  * Version: 2.0
  * Requires at least: 6.3
  * Requires PHP: 7.0
+ * Requires Plugins: woocommerce
  * WC tested up to: 7.1
  * Author: Oscar Ciutat
  * Author URI: http://oscarciutat.com/code/
