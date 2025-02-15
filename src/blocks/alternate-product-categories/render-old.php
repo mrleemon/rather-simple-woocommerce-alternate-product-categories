@@ -1,19 +1,4 @@
 <?php
-	$block_attributes = get_block_wrapper_attributes()
-?>
-<div
-	<?php echo $block_attributes; ?>
-	<?php
-	echo wp_interactivity_data_wp_context(
-		array(
-			'homeURL' => home_url( '/' ),
-		)
-	);
-	?>
-	data-wp-interactive="rswapc-store"
->
-
-<?php
 $term_id = get_queried_object()->term_id;
 $term    = get_term( $term_id, 'product_cat' );
 
@@ -46,10 +31,30 @@ if ( $term && ! is_wp_error( $term ) ) {
 		$current_product_cat = isset( $wp_query->query_vars['product_cat'] ) ? $wp_query->query_vars['product_cat'] : '';
 		$terms               = get_terms( $cat_args );
 
-		echo "<select data-wp-on--change='actions.redirect' name='product_cat' class='dropdown_product_cat'>";
+		echo "<select name='product_cat' class='dropdown_product_cat'>";
 		echo '<option value="" ' . selected( $term_id, '', false ) . '>' . __( 'Select a category', 'woocommerce' ) . '</option>';
 		echo wc_walk_category_dropdown_tree( $terms, 0, $cat_args );
 		echo '</select>';
+
+		wc_enqueue_js(
+			"
+            var dropdown = document.querySelector('.dropdown_product_cat');
+            if (dropdown) {
+                dropdown.addEventListener('change', function() {
+                    if (this.value !== '') {
+                        var this_page = '';
+                        var home_url  = '" . esc_js( home_url( '/' ) ) . "';
+                        if (home_url.indexOf('?') > 0) {
+                            this_page = home_url + '&product_cat=' + this.value;
+                        } else {
+                            this_page = home_url + '?product_cat=' + this.value;
+                        }
+                        location.href = this_page;
+                    }
+                });
+            }
+        "
+		);
 
 	} else {
 
@@ -101,5 +106,3 @@ if ( $term && ! is_wp_error( $term ) ) {
 
 	}
 }
-?>
-</div>

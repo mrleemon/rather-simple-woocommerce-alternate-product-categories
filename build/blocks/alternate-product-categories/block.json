@@ -18,12 +18,15 @@
   },
   "supports": {
     "html": false,
+    "multiple": false,
     "spacing": {
       "margin": true,
       "padding": true
-    }
+    },
+    "interactivity": true
   },
   "editorScript": "file:./index.js",
+  "viewScriptModule": "file:./view.js",
   "style": "file:./style-index.css",
   "editorStyle": "file:./index.css",
   "render": "file:./render.php"
