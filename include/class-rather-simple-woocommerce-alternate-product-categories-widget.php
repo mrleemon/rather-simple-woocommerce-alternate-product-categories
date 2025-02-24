@@ -50,6 +50,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 
 				if ( $term->parent > 0 ) {
 					$cat_args = array(
+						'taxonomy'   => 'product_cat',
 						'orderby'    => 'name',
 						'order'      => 'ASC',
 						'hide_empty' => true,
