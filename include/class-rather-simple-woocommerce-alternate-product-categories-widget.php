@@ -63,10 +63,9 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 					'selected'   => $term ? $term->slug : '',
 				);
 
-				$current_product_cat = isset( $wp_query->query_vars['product_cat'] ) ? $wp_query->query_vars['product_cat'] : '';
-				$terms               = get_terms( $cat_args );
+				$terms = get_terms( $cat_args );
 
-				$output  = "<select name='product_cat' class='dropdown_product_cat'>";
+				$output  = '<select name="product_cat" class="dropdown_product_cat">';
 				$output .= '<option value="" ' . selected( $term_id, '', false ) . '>' . __( 'Select a category', 'woocommerce' ) . '</option>';
 				$output .= wc_walk_category_dropdown_tree( $terms, 0, $options );
 				$output .= '</select>';
