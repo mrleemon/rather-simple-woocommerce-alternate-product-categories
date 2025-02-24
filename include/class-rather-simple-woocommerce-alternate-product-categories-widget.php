@@ -48,24 +48,15 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 
 			if ( $dropdown ) {
 
-				if ( $term->parent > 0 ) {
-					$cat_args = array(
-						'taxonomy'   => 'product_cat',
-						'orderby'    => 'name',
-						'order'      => 'ASC',
-						'hide_empty' => true,
-						'child_of'   => $term->parent,
-					);
+				$parent_id = ( $term->parent > 0 ) ? $term->parent : $term_id;
 
-				} else {
-					$cat_args = array(
-						'taxonomy'   => 'product_cat',
-						'orderby'    => 'name',
-						'order'      => 'ASC',
-						'hide_empty' => true,
-						'child_of'   => $term_id,
-					);
-				}
+				$cat_args = array(
+					'taxonomy'   => 'product_cat',
+					'orderby'    => 'name',
+					'order'      => 'ASC',
+					'hide_empty' => true,
+					'child_of'   => $parent_id,
+				);
 
 				$options = array(
 					'show_count' => $count ? 1 : 0,
