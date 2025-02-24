@@ -94,54 +94,27 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 
 			} else {
 
+				$parent_id = ( $term->parent > 0 ) ? $term->parent : $term_id;
+
+				$cat_args = array(
+					'taxonomy'   => 'product_cat',
+					'orderby'    => 'name',
+					'order'      => 'ASC',
+					'hide_empty' => true,
+					'child_of'   => $parent_id,
+				);
+
+				$terms = get_terms( $cat_args );
+
 				echo '<ul class="product-categories">';
-
-				if ( $term->parent > 0 ) {
-
-					$cat_args = array(
-						'taxonomy'   => 'product_cat',
-						'orderby'    => 'name',
-						'order'      => 'ASC',
-						'hide_empty' => true,
-						'child_of'   => $term->parent,
-					);
-
-					$siblingcategories = get_terms( $cat_args );
-
-					foreach ( $siblingcategories as $siblingcategory ) {
-						if ( $siblingcategory->term_id === $term_id ) {
-							echo '<li class="cat-item cat-item-' . esc_attr( $siblingcategory->term_id ) . ' current-cat">';
-						} else {
-							echo '<li class="cat-item cat-item-' . esc_attr( $siblingcategory->term_id ) . '">';
-						}
-
-						echo '<a href="' . esc_url( get_term_link( $siblingcategory ) ) . '">' . $siblingcategory->name . '</a>';
-						if ( $count ) {
-							echo ' <span class="count">(' . $siblingcategory->count . ')</span>';
-						}
-						echo '</li>';
+				foreach ( $terms as $term ) {
+					echo '<li class="cat-item cat-item-' . esc_attr( $term->term_id ) . ( $term->term_id === $term_id ? ' current-cat' : '' ) . '">';
+					echo '<a href="' . esc_url( get_term_link( $term ) ) . '">' . $term->name . '</a>';
+					if ( $count ) {
+						echo ' <span class="count">(' . $term->count . ')</span>';
 					}
-				} else {
-
-					$cat_args = array(
-						'taxonomy'   => 'product_cat',
-						'orderby'    => 'name',
-						'order'      => 'ASC',
-						'hide_empty' => true,
-						'child_of'   => $term_id,
-					);
-
-					$subcategories = get_terms( $cat_args );
-
-					foreach ( $subcategories as $subcategory ) {
-						echo '<li class="cat-item cat-item-' . esc_attr( $subcategory->term_id ) . '"><a href="' . esc_url( get_term_link( $subcategory ) ) . '">' . $subcategory->name . '</a>';
-						if ( $count ) {
-							echo ' <span class="count">(' . $subcategory->count . ')</span>';
-						}
-						echo '</li>';
-					}
+					echo '</li>';
 				}
-
 				echo '</ul>';
 
 			}
