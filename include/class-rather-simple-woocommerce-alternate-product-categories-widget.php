@@ -46,24 +46,24 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 
 		if ( $term && ! is_wp_error( $term ) ) {
 
+			$parent_id = ( $term->parent > 0 ) ? $term->parent : $term_id;
+
+			$cat_args = array(
+				'taxonomy'   => 'product_cat',
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+				'hide_empty' => true,
+				'child_of'   => $parent_id,
+			);
+
+			$terms = get_terms( $cat_args );
+
 			if ( $dropdown ) {
-
-				$parent_id = ( $term->parent > 0 ) ? $term->parent : $term_id;
-
-				$cat_args = array(
-					'taxonomy'   => 'product_cat',
-					'orderby'    => 'name',
-					'order'      => 'ASC',
-					'hide_empty' => true,
-					'child_of'   => $parent_id,
-				);
 
 				$options = array(
 					'show_count' => $count ? 1 : 0,
 					'selected'   => $term ? $term->slug : '',
 				);
-
-				$terms = get_terms( $cat_args );
 
 				$output  = '<select name="product_cat" class="dropdown_product_cat">';
 				$output .= '<option value="" ' . selected( $term_id, '', false ) . '>' . __( 'Select a category', 'woocommerce' ) . '</option>';
@@ -93,18 +93,6 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 				);
 
 			} else {
-
-				$parent_id = ( $term->parent > 0 ) ? $term->parent : $term_id;
-
-				$cat_args = array(
-					'taxonomy'   => 'product_cat',
-					'orderby'    => 'name',
-					'order'      => 'ASC',
-					'hide_empty' => true,
-					'child_of'   => $parent_id,
-				);
-
-				$terms = get_terms( $cat_args );
 
 				echo '<ul class="product-categories">';
 				foreach ( $terms as $term ) {
