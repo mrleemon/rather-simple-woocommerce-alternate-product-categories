@@ -7,11 +7,15 @@ import {
 	PanelBody,
 	ToggleControl,
 } from '@wordpress/components';
-import { InspectorControls } from '@wordpress/block-editor';
+import {
+	InspectorControls,
+	useBlockProps
+} from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 
 const Edit = (props) => {
 
+	const blockProps = useBlockProps();
 	const attributes = props.attributes;
 
 	const toggleDropdown = () => {
@@ -49,12 +53,14 @@ const Edit = (props) => {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<Disabled>
-				<ServerSideRender
-					block="occ/alternate-product-categories"
-					attributes={attributes}
-				/>
-			</Disabled>
+			<div {...blockProps}>
+				<Disabled>
+					<ServerSideRender
+						block="occ/alternate-product-categories"
+						attributes={attributes}
+					/>
+				</Disabled>
+			</div>
 		</>
 	);
 
