@@ -16,14 +16,17 @@ import ServerSideRender from '@wordpress/server-side-render';
 const Edit = (props) => {
 
 	const blockProps = useBlockProps();
-	const attributes = props.attributes;
+	const {
+		attributes: { dropdown, count },
+		setAttributes,
+	} = props;
 
 	const toggleDropdown = () => {
-		props.setAttributes({ dropdown: !props.attributes.dropdown });
+		setAttributes({ dropdown: !props.attributes.dropdown });
 	};
 
 	const toggleCount = () => {
-		props.setAttributes({ count: !props.attributes.count });
+		setAttributes({ count: !props.attributes.count });
 	};
 
 	return (
@@ -40,7 +43,7 @@ const Edit = (props) => {
 							'Show as dropdown',
 							'rather-simple-woocommerce-alternate-product-categories'
 						)}
-						checked={!!attributes.dropdown}
+						checked={!!dropdown}
 						onChange={toggleDropdown}
 					/>
 					<ToggleControl
@@ -48,7 +51,7 @@ const Edit = (props) => {
 							'Show product counts',
 							'rather-simple-woocommerce-alternate-product-categories'
 						)}
-						checked={!!attributes.count}
+						checked={!!count}
 						onChange={toggleCount}
 					/>
 				</PanelBody>
@@ -57,7 +60,7 @@ const Edit = (props) => {
 				<Disabled>
 					<ServerSideRender
 						block="occ/alternate-product-categories"
-						attributes={attributes}
+						attributes={props.attributes}
 					/>
 				</Disabled>
 			</div>
