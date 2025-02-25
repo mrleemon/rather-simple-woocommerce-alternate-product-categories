@@ -23,6 +23,13 @@
 			"margin": true,
 			"padding": true
 		},
+		"color": {
+			"background": false,
+			"link": true
+		},
+		"typography": {
+			"fontSize": true
+		},
 		"interactivity": true
 	},
 	"editorScript": "file:./index.js",
