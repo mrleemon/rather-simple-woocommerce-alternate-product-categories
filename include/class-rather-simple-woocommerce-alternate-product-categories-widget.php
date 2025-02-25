@@ -41,71 +41,71 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
 
-		$term_id = get_queried_object()->term_id;
-		$term    = get_term( $term_id, 'product_cat' );
+		$parent_id = 0;
+		$term_id   = get_queried_object()->term_id;
+		$term      = get_term( $term_id, 'product_cat' );
 
 		if ( $term && ! is_wp_error( $term ) ) {
-
 			$parent_id = ( $term->parent > 0 ) ? $term->parent : $term_id;
+		}
 
-			$cat_args = array(
-				'taxonomy'   => 'product_cat',
-				'orderby'    => 'name',
-				'order'      => 'ASC',
-				'hide_empty' => true,
-				'child_of'   => $parent_id,
+		$cat_args = array(
+			'taxonomy'   => 'product_cat',
+			'orderby'    => 'name',
+			'order'      => 'ASC',
+			'hide_empty' => true,
+			'child_of'   => $parent_id,
+		);
+
+		$terms = get_terms( $cat_args );
+
+		if ( $dropdown ) {
+
+			$options = array(
+				'show_count' => $count ? 1 : 0,
+				'selected'   => $term ? $term->slug : '',
 			);
 
-			$terms = get_terms( $cat_args );
+			$output  = '<select name="product_cat" class="dropdown_product_cat">';
+			$output .= '<option value="" ' . selected( $term_id, '', false ) . '>' . __( 'Select a category', 'woocommerce' ) . '</option>';
+			$output .= wc_walk_category_dropdown_tree( $terms, 0, $options );
+			$output .= '</select>';
 
-			if ( $dropdown ) {
+			echo $output;
 
-				$options = array(
-					'show_count' => $count ? 1 : 0,
-					'selected'   => $term ? $term->slug : '',
-				);
-
-				$output  = '<select name="product_cat" class="dropdown_product_cat">';
-				$output .= '<option value="" ' . selected( $term_id, '', false ) . '>' . __( 'Select a category', 'woocommerce' ) . '</option>';
-				$output .= wc_walk_category_dropdown_tree( $terms, 0, $options );
-				$output .= '</select>';
-
-				echo $output;
-
-				wc_enqueue_js(
-					"
-                    var dropdown = document.querySelector( '.dropdown_product_cat' );
-					if ( dropdown ) {
-						dropdown.addEventListener( 'change', function() {
-                        	if ( this.value !== '' ) {
-                            	var this_page = '';
-                            	var home_url  = '" . esc_js( home_url( '/' ) ) . "';
-                            	if ( home_url.indexOf( '?' ) > 0 ) {
-                                	this_page = home_url + '&product_cat=' + this.value;
-                            	} else {
-	                                this_page = home_url + '?product_cat=' + this.value;
-    	                        }
-        	                    location.href = this_page;
-            	            }
-                    	});
-					}
-                "
-				);
-
-			} else {
-
-				echo '<ul class="product-categories">';
-				foreach ( $terms as $term ) {
-					echo '<li class="cat-item cat-item-' . esc_attr( $term->term_id ) . ( $term->term_id === $term_id ? ' current-cat' : '' ) . '">';
-					echo '<a href="' . esc_url( get_term_link( $term ) ) . '">' . $term->name . '</a>';
-					if ( $count ) {
-						echo ' <span class="count">(' . $term->count . ')</span>';
-					}
-					echo '</li>';
+			wc_enqueue_js(
+				"
+				var dropdown = document.querySelector( '.dropdown_product_cat' );
+				if ( dropdown ) {
+					dropdown.addEventListener( 'change', function() {
+						if ( this.value !== '' ) {
+							var this_page = '';
+							var home_url  = '" . esc_js( home_url( '/' ) ) . "';
+							if ( home_url.indexOf( '?' ) > 0 ) {
+								this_page = home_url + '&product_cat=' + this.value;
+							} else {
+								this_page = home_url + '?product_cat=' + this.value;
+							}
+							location.href = this_page;
+						}
+					});
 				}
-				echo '</ul>';
+			"
+			);
 
+		} else {
+
+			echo '<ul class="product-categories">';
+			foreach ( $terms as $term ) {
+				echo '<li class="cat-item cat-item-' . esc_attr( $term->term_id ) . ( $term->term_id === $term_id ? ' current-cat' : '' ) . '">';
+				echo '<a href="' . esc_url( get_term_link( $term ) ) . '">' . $term->name . '</a>';
+				if ( $count ) {
+					echo ' <span class="count">(' . $term->count . ')</span>';
+				}
+				echo '</li>';
 			}
+			echo '</ul>';
+
 		}
 
 		echo $args['after_widget'];
