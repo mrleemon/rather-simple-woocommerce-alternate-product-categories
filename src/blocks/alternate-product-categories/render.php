@@ -36,8 +36,9 @@ $terms = get_terms( $cat_args );
 if ( $attributes['dropdown'] ) {
 
 	$options = array(
-		'show_count' => $attributes['count'] ? 1 : 0,
-		'selected'   => $term ? $term->slug : '',
+		'hierarchical' => 1,
+		'show_count'   => $attributes['count'] ? 1 : 0,
+		'selected'     => $term ? $term->slug : '',
 	);
 
 	echo '<select data-wp-on--change="actions.redirect" name="product_cat" class="dropdown_product_cat">';

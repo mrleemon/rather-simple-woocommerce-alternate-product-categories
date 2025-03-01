@@ -62,8 +62,9 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories_Widget extends WP_W
 		if ( $dropdown ) {
 
 			$options = array(
-				'show_count' => $count ? 1 : 0,
-				'selected'   => $term ? $term->slug : '',
+				'hierarchical' => 1,
+				'show_count'   => $count ? 1 : 0,
+				'selected'     => $term ? $term->slug : '',
 			);
 
 			$output  = '<select name="product_cat" class="dropdown_product_cat">';
