@@ -11,6 +11,7 @@
  * Author: Oscar Ciutat
  * Author URI: http://oscarciutat.com/code/
  * Text Domain: rather-simple-woocommerce-alternate-product-categories
+ * Domain Path: /languages
  * Description: A really simple WooCommerce alternate product categories widget and block.
  * License: GPLv2 or later
  *
