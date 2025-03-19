@@ -28,7 +28,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @package rather_simple_wooCommerce_alternate_product_categories
+ * @package rather_simple_woocommerce_alternate_product_categories
  */
 
 /**
