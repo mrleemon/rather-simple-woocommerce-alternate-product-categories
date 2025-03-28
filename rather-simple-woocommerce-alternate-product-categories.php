@@ -4,7 +4,7 @@
  * Plugin URI:
  * Update URI: false
  * Version: 2.0
- * Requires at least: 6.6
+ * Requires at least: 6.8
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
  * WC tested up to: 7.1
@@ -62,7 +62,6 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 
 		$this->includes();
 
-		add_action( 'init', array( $this, 'load_language' ) );
 		add_action( 'init', array( $this, 'register_block' ) );
 		add_action( 'before_woocommerce_init', array( $this, 'declare_wchpos_compatibility' ) );
 	}
@@ -77,13 +76,6 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 	 */
 	protected function includes() {
 		require_once 'include/class-rather-simple-woocommerce-alternate-product-categories-widget.php';
-	}
-
-	/**
-	 * Loads language
-	 */
-	public function load_language() {
-		load_plugin_textdomain( 'rather-simple-woocommerce-alternate-product-categories', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	/**
