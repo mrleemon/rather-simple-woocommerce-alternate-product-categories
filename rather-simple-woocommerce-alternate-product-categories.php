@@ -75,7 +75,7 @@ class Rather_Simple_WooCommerce_Alternate_Product_Categories {
 	 * Includes required core files used in admin and on the frontend.
 	 */
 	protected function includes() {
-		require_once 'include/class-rather-simple-woocommerce-alternate-product-categories-widget.php';
+		require_once 'includes/class-rather-simple-woocommerce-alternate-product-categories-widget.php';
 	}
 
 	/**
