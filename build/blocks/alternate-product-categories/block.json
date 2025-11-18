@@ -30,7 +30,9 @@
     "typography": {
       "fontSize": true
     },
-    "interactivity": true
+    "interactivity": {
+      "clientNavigation": true
+    }
   },
   "editorScript": "file:./index.js",
   "viewScriptModule": "file:./view.js",
