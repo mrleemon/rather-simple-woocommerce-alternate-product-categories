@@ -5,7 +5,8 @@
   "main": "build/index.js",
   "devDependencies": {
     "@wordpress/interactivity": "^6.39.0",
-    "@wordpress/scripts": "^31.4.0"
+    "@wordpress/scripts": "^31.4.0",
+    "dir-archiver": "^1.0.0"
   },
   "scripts": {
     "build": "wp-scripts build --experimental-modules",
@@ -19,9 +20,7 @@
     "test:e2e": "wp-scripts test-e2e",
     "test:unit": "wp-scripts test-unit-js",
     "make-pot": "wp i18n make-pot . languages/rather-simple-woocommerce-alternate-product-categories.pot",
-    "make-json": "wp i18n make-json languages --no-purge"
-  },
-  "dependencies": {
-    "npm-check-updates": "^19.3.2"
+    "make-json": "wp i18n make-json languages --no-purge",
+    "bundle": "dir-archiver --includebasedir --src . --dest ../rather-simple-woocommerce-alternate-product-categories.zip --exclude .git .gitattributes .gitignore node_modules package-lock.json package.json"
   }
 }
