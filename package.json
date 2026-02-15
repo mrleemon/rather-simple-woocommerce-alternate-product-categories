@@ -6,7 +6,7 @@
   "devDependencies": {
     "@wordpress/interactivity": "^6.39.0",
     "@wordpress/scripts": "^31.4.0",
-    "dir-archiver": "^1.0.0"
+    "dir-archiver": "^2.2.0"
   },
   "scripts": {
     "build": "wp-scripts build --experimental-modules",
